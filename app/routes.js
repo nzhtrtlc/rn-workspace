@@ -1,6 +1,7 @@
 import React from 'react';
 import { StackNavigator, DrawerNavigator, DrawerItems } from 'react-navigation';
-import { StatusBar, Text, View, Platform, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
+import { StatusBar, Text, View, Platform, TouchableOpacity, StyleSheet, Dimensions, Image } from 'react-native';
+import { LinearGradient, BlurView } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
 import Home from './layout/screens/Home';
 import Users from './layout/screens/Users';
@@ -13,17 +14,20 @@ const DrawerIcon = ({navigation}) => {
         </TouchableOpacity>
     )
 };
-
 const DrawerContent = (props) => {
     return (
-        <View style={{flex: 1, backgroundColor: 'rgba(52, 52, 52, 0.8)'}}>
-            <View style={style.drawerHeader}>
-
-            </View>
+        <LinearGradient
+            colors={['#c7e0ed', '#83a4bf', '#3b5b84']}
+            style={{flex: 1}}>
+            <LinearGradient
+                //colors={['#3b5b84', '#83a4bf', '#c7e0ed']}
+                style={style.drawerHeader}>
+                <Text>jaskd asd</Text>
+            </LinearGradient>
             <View style={style.drawerContent}>
                 <DrawerItems {...props} style={style.drawerItem}/>
             </View>
-        </View>
+        </LinearGradient>
     )
 };
 
@@ -50,38 +54,34 @@ const MyDrawerNavigator = DrawerNavigator({
     HomeStack: {
         screen: HomeStackNavigator,
         navigationOptions: {
-            drawer: () => ({
-                label: 'Home',
-                icon: ({tintColor}) => (
-                    <Ionicons name="md-home" size={22} color={tintColor}/>
-                ),
-            })
+            drawerIcon: ({tintColor}) => (<Ionicons name="md-home" size={22} color={tintColor}/>),
         },
     },
     UsersStack: {
         screen: UsersStackNavigator,
         navigationOptions: {
-            drawer: () => ({
-                label: 'Users',
-                icon: ({tintColor}) => (
-                    <Ionicons name="md-people" size={22} color={tintColor}/>
-                ),
-            })
+            drawerIcon: ({tintColor}) => (<Ionicons name="md-people" size={22} color={tintColor}/>),
         },
     }
 }, {
     drawerWidth: 300,
     contentOptions: {
-        activeTintColor: '#fff',
-        activeBackgroundColor : 'transparent'
+        activeTintColor: '#e9178a',
     },
-    contentComponent: props => <DrawerContent {...props}
-                                              getLabel={(scene) => (
-                                                  <View style={style.drawerItem}>
-                                                      <Text>{props.getLabel(scene)}</Text>
-                                                      <Text>{console.log("Filter :",props.items.filter(x => x.key == props.activeItemKey).key == scene.route.key)}</Text>
-                                                  </View>
-                                              )}/>
+    contentComponent: (props) =>
+        <View style={style.drawerContainer}>
+            <LinearGradient
+                colors={['#CE1772','#BD1766' ,'#91174A']}
+                style={style.drawerHeader}>
+                <View style={style.headerImage}>
+                    <Image style={{width:80,height:80}} resizeMode="stretch" source={{uri : 'http://niptara.com/wp-content/uploads/2015/04/Gal-Gadot.jpg?x58279'}}/>
+                </View>
+                <Text style={{color : '#fff'}}>nezih@cloudnesil.com</Text>
+            </LinearGradient>
+            <View style={style.drawerContent}>
+                <DrawerItems {...props}/>
+            </View>
+        </View>
 });
 
 const AppNavigator = StackNavigator({
@@ -92,40 +92,31 @@ const AppNavigator = StackNavigator({
 });
 
 const style = StyleSheet.create({
+    drawerContainer : {
+      flex : 1
+    },
     drawerHeader: {
         flex: 1,
-        flexDirection: 'row',
-        flexWrap: 'wrap',
+        justifyContent :'flex-end',
+        paddingVertical: 20,
+        paddingHorizontal:10
+    },
+    drawerContent: {
+        flex: 3,
+        backgroundColor: '#fff'
     },
     headerImage: {
         flex: 1,
         width: Dimensions.get('window').width - 100,
         height: Dimensions.get('window').width / 2
     },
-    drawerContent: {
-        flex: 2,
-    },
-    headerContent: {},
-    drawerItem: {
-        flex:1,
-        padding:10,
-        borderBottomWidth:1,
-        borderBottomColor:'gray'
-    },
-    image: {
-        borderWidth: 1,
-        borderColor: 'rgba(0,0,0,0.2)',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: 100,
-        height: 100,
-        backgroundColor: '#fff',
-        borderRadius: 100,
-    },
-    absolute: {
-        position: "absolute",
-        top: 0, left: 0, bottom: 0, right: 0,
-    },
+
+    // headerContent: {},
+    // drawerItem: {
+    //     flex: 1,
+    //     padding: 10
+    // },
+    // drawerItemText: {}
 });
 
 export default AppNavigator;
