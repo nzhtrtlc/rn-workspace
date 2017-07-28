@@ -1,7 +1,6 @@
 import React from 'react';
 import EStyleSheet from 'react-native-extended-stylesheet';
-import Login from './layout/screens/Login';
-import Navigator from './routes';
+import {SignedOut,SignedIn} from './routes';
 
 EStyleSheet.build({
     $primaryRed: '#e43f3f',
@@ -12,7 +11,7 @@ EStyleSheet.build({
 export default () => {
     const isLogged = true;
     if (isLogged)
-        return <Navigator />;
+        return <SignedIn />;
     else
-        return <Login/>;
+        return <SignedOut/>;
 };

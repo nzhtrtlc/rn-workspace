@@ -1,22 +1,20 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
 import { LinearGradient } from 'expo';
 class Home extends React.Component {
 
     componentWillMount() {
-        this.props.navigation.navigate('DrawerOpen');
+       //this.props.navigation.navigate('DrawerOpen');
     }
 
     render() {
         return (
             <View style={styles.container}>
-                <LinearGradient
-                    colors={['#4c669f', '#3b5998', '#192f6a']}
-                    style={{padding: 15, alignItems: 'center', borderRadius: 5}}>
-                    <Text style={{backgroundColor: 'transparent', fontSize: 15, color: '#fff'}}>
-                        Sign in with Facebook
-                    </Text>
-                </LinearGradient>
+                <Image resizeMode="stretch" style={styles.bg} source={{uri : "http://i.imgur.com/bshfOAr.jpg"}}>
+                    <View style={{height : '100%',backgroundColor:'rgba(0,0,0,.5)',alignItems :'center', justifyContent :'center'}}>
+                        <Text style={{color : '#fff'}}> Test Text </Text>
+                    </View>
+                </Image>
             </View>
         );
     }
@@ -27,11 +25,13 @@ const styles = StyleSheet.create({
     container: {
         flex: 1
     },
-    linearGradient: {
-        flex: 1,
-        paddingLeft: 15,
-        paddingRight: 15,
-        borderRadius: 5
+    bgContainer : {
+        flex : 1,
+        backgroundColor : 'rgba(0,0,0,.1)',
+        zIndex : 9999
+    },
+    bg : {
+      flex:1
     },
     buttonText: {
         fontSize: 18,

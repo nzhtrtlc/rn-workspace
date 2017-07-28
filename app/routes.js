@@ -1,10 +1,12 @@
 import React from 'react';
 import { StackNavigator, DrawerNavigator, DrawerItems } from 'react-navigation';
 import { StatusBar, Text, View, Platform, TouchableOpacity, StyleSheet, Dimensions, Image } from 'react-native';
-import { LinearGradient, BlurView } from 'expo';
+import { LinearGradient } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
 import Home from './layout/screens/Home';
 import Users from './layout/screens/Users';
+import SignIn from './layout/screens/SignIn';
+import SignUp from './layout/screens/SignUp';
 
 const DrawerIcon = ({navigation}) => {
     let iconName = Platform.OS == "ios" ? "ios-menu" : "md-menu";
@@ -50,6 +52,17 @@ const UsersStackNavigator = StackNavigator({
     },
 });
 
+const SignedOut = StackNavigator({
+    SignIn : {
+        screen: SignIn,
+    },
+    SignUp : {
+        screen : SignUp
+    }
+}, {
+    headerMode :'none'
+});
+
 const MyDrawerNavigator = DrawerNavigator({
     HomeStack: {
         screen: HomeStackNavigator,
@@ -74,9 +87,9 @@ const MyDrawerNavigator = DrawerNavigator({
                 colors={['#CE1772','#BD1766' ,'#91174A']}
                 style={style.drawerHeader}>
                 <View style={style.headerImage}>
-                    <Image style={{width:80,height:80}} resizeMode="stretch" source={{uri : 'http://niptara.com/wp-content/uploads/2015/04/Gal-Gadot.jpg?x58279'}}/>
+                    <Image style={{width:80,height:80,borderRadius:100}} resizeMode="stretch" source={{uri : 'http://niptara.com/wp-content/uploads/2015/04/Gal-Gadot.jpg?x58279'}}/>
                 </View>
-                <Text style={{color : '#fff'}}>nezih@cloudnesil.com</Text>
+                <Text style={{color : '#adadad'}}>galgadot@hollywood.com</Text>
             </LinearGradient>
             <View style={style.drawerContent}>
                 <DrawerItems {...props}/>
@@ -84,7 +97,7 @@ const MyDrawerNavigator = DrawerNavigator({
         </View>
 });
 
-const AppNavigator = StackNavigator({
+const SignedIn = StackNavigator({
     Drawer: {screen: MyDrawerNavigator},
 }, {
     headerMode: 'none',
@@ -119,4 +132,5 @@ const style = StyleSheet.create({
     // drawerItemText: {}
 });
 
-export default AppNavigator;
+export {SignedOut,SignedIn}
+export default SignedIn;
